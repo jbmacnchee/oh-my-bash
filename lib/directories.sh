@@ -74,10 +74,10 @@ _omb_util_alias d='dirs -v | head -10'
 _omb_util_alias po='popd'
 
 # List directory contents
-_omb_util_alias lsa='ls -lha'
-_omb_util_alias l='ls -lha'
-_omb_util_alias ll='ls -lh'
-_omb_util_alias la='ls -lhA'
+# _omb_util_alias lsa='ls -lha'
+# _omb_util_alias l='ls -lha'
+# _omb_util_alias ll='ls -lh'
+# _omb_util_alias la='ls -lhA'
 
 # From bourne-shell.sh (unused)
 #_omb_util_alias l='ls -CF'
