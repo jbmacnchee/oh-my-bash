@@ -1,13 +1,13 @@
 #! bash oh-my-bash.module
 # scm theming
-SCM_THEME_PROMPT_PREFIX="${_omb_prompt_olive}("
-SCM_THEME_PROMPT_SUFFIX=")${_omb_prompt_normal}"
+SCM_THEME_PROMPT_PREFIX="|"
+SCM_THEME_PROMPT_SUFFIX=""
 
-SCM_THEME_PROMPT_DIRTY="*"
-SCM_THEME_PROMPT_CLEAN=""
-SCM_GIT_CHAR="g"
-SCM_SVN_CHAR="s"
-SCM_HG_CHAR="h"
+SCM_THEME_PROMPT_DIRTY=" ${_omb_prompt_bold_brown}✗${_omb_prompt_normal}"
+SCM_THEME_PROMPT_CLEAN=" ${_omb_prompt_green}✓${_omb_prompt_normal}"
+SCM_GIT_CHAR="${_omb_prompt_green}±${_omb_prompt_normal}"
+SCM_SVN_CHAR="${_omb_prompt_bold_teal}⑆${_omb_prompt_normal}"
+SCM_HG_CHAR="${_omb_prompt_bold_brown}☿${_omb_prompt_normal}"
 
 ### TODO: openSUSE has already colors enabled, check if those differs from stock
 # LS colors, made with http://geoff.greer.fm/lscolors/
@@ -20,21 +20,23 @@ function scm_prompt {
         then
             return
         else
-            _omb_util_print "$(scm_prompt_info) "
+            _omb_util_print "[$(scm_char)$(scm_prompt_info)]"
     fi
 }
 
 function _omb_theme_PROMPT_COMMAND {
-    ps_host="${_omb_prompt_green}\h${_omb_prompt_normal}";
-    ps_user_mark="${_omb_prompt_bold}\$${_omb_prompt_normal}";
-    ps_root_mark="${_omb_prompt_normal}§"
-    ps_path="${_omb_prompt_normal}\w";
+    ps_host="${_omb_prompt_bold_navy}\h${_omb_prompt_normal}";
+    ps_user="${_omb_prompt_green}\u${_omb_prompt_normal}";
+    ps_user_mark="${_omb_prompt_green} $ ${_omb_prompt_normal}";
+    ps_root="${_omb_prompt_brown}\u${_omb_prompt_normal}";
+    ps_root_mark="${_omb_prompt_brown} # ${_omb_prompt_normal}"
+    ps_path="${_omb_prompt_olive}\w${_omb_prompt_normal}";
 
     # make it work
     case $(id -u) in
-        0) PS1="$ps_host $ps_path $(scm_prompt)$ps_root_mark "
+        0) PS1="[$ps_root@$ps_host$(scm_prompt) $ps_path]$ps_root_mark"
             ;;
-        *) PS1="$ps_host $ps_path $(scm_prompt)$ps_user_mark "
+        *) PS1="[$ps_user@$ps_host$(scm_prompt) $ps_path]$ps_user_mark"
             ;;
     esac
 }
